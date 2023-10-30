@@ -1,5 +1,5 @@
 // user.entity.ts
-import {Entity, PrimaryGeneratedColumn, Column, Timestamp, CreateDateColumn} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from 'typeorm';
 
 @Entity()
 export class User {
@@ -23,6 +23,9 @@ export class User {
 
     @Column()
     phone: string;
+
+    @Column()
+    type: string;
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdDate: Date;
