@@ -27,8 +27,11 @@ export class Worker {
     @Column()
     phone: string;
 
-    @Column()
-    birthdate: string;
+    @Column({
+        type: 'date',
+        nullable: true
+    })
+    birthday: Date | null;
 
     @Column()
     gender: string;
@@ -41,7 +44,7 @@ export class Worker {
 
     @ManyToMany(() => SubCategory)
     @JoinTable({
-        name: 'specialist_subcategory', // Ім'я таблиці-сполучника
+        name: 'specialist_subcategory',
         joinColumn: {
             name: 'specialist_id',
             referencedColumnName: 'id',

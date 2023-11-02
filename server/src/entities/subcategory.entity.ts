@@ -12,5 +12,4 @@ export class SubCategory {
     @ManyToOne(() => Category, category => category.subcategories)
     category: Category;
 
-
 }
