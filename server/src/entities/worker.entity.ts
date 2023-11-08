@@ -44,7 +44,7 @@ export class Worker {
 
     @ManyToMany(() => SubCategory)
     @JoinTable({
-        name: 'specialist_subcategory',
+        name: 'worker_subcategory',
         joinColumn: {
             name: 'specialist_id',
             referencedColumnName: 'id',
@@ -57,7 +57,7 @@ export class Worker {
     categories: SubCategory[];
 
     @Column()
-    rating: number;
+    rating: number | null;
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdDate: Date;

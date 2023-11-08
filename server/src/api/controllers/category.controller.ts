@@ -5,12 +5,12 @@ import {Category} from "../../entities/category.entity";
 @Controller('categories')
 export class CategoryController{
     constructor(private readonly CategoryService: CategoryService) {}
-    //get all users
+
     @Get()
     async findAll(): Promise<Category[]> {
         return this.CategoryService.findAll();
     }
-    //get user by id
+
     @Get(':id')
     async findOne(@Param('id') id: number): Promise<Category> {
         const category = await this.CategoryService.findOne(id);
@@ -20,7 +20,7 @@ export class CategoryController{
             return category;
         }
     }
-    //create user
+
     @Post()
     async create(@Body() category: Category): Promise<Category> {
         try {
@@ -30,12 +30,12 @@ export class CategoryController{
             throw new BadRequestException('Invalid user data');
         }
     }
-    //update user
+
     @Put(':id')
     async update (@Param('id') id: number, @Body() category: Category): Promise<any> {
         return this.CategoryService.update(id, category);
     }
-    //delete user
+
     @Delete(':id')
     async delete(@Param('id') id: number): Promise<any> {
         //handle error if user does not exist

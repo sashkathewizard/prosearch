@@ -9,6 +9,10 @@ import {User} from "../entities/user.entity";
 
 import {Worker} from "../entities/worker.entity";
 import {WorkerModule} from "./worker.module";
+import {CategoryModule} from "./category.module";
+import {Category} from "../entities/category.entity";
+import {SubcategoryModule} from "./subcategory.module";
+import {SubCategory} from "../entities/subcategory.entity";
 
 
 @Module({
@@ -16,6 +20,8 @@ import {WorkerModule} from "./worker.module";
     ConfigModule.forRoot(),
     UsersModule,
     WorkerModule,
+    CategoryModule,
+    SubcategoryModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST || 'localhost',
@@ -23,7 +29,7 @@ import {WorkerModule} from "./worker.module";
       username: process.env.POSTGRES_USER || "postgres",
       password: process.env.POSTGRES_PASSWORD || "postgres",
       database: process.env.POSTGRES_DATABASE || "postgres",
-      entities: [User, Worker],
+      entities: [User, Worker, Category, SubCategory],
       synchronize: true,
     }),
   ],

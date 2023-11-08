@@ -5,12 +5,12 @@ import {Worker} from "../../entities/worker.entity";
 @Controller('workers')
 export class WorkerController {
     constructor(private readonly WorkerService: WorkerService) {}
-    //get all users
+
     @Get()
     async findAll(): Promise<Worker[]> {
         return this.WorkerService.findAll();
     }
-    //get user by id
+
     @Get(':id')
     async findOne(@Param('id') id: number): Promise<Worker> {
         const worker = await this.WorkerService.findOne(id);
@@ -20,7 +20,7 @@ export class WorkerController {
             return worker;
         }
     }
-    //create user
+
     @Post()
     async create(@Body() worker: Worker): Promise<Worker> {
         try {
@@ -30,18 +30,18 @@ export class WorkerController {
             throw new BadRequestException('Invalid user data');
         }
     }
-    //update user
+
     @Put(':id')
     async update (@Param('id') id: number, @Body() worker: Worker): Promise<any> {
         return this.WorkerService.update(id, worker);
     }
-    //delete user
+
     @Delete(':id')
     async delete(@Param('id') id: number): Promise<any> {
         //handle error if user does not exist
-        const user = await this.WorkerService.findOne(id);
-        if (!user) {
-            throw new NotFoundException('User does not exist!');
+        const worker: Worker = await this.WorkerService.findOne(id);
+        if (!worker) {
+            throw new NotFoundException('Worker does not exist!');
         }
         return this.WorkerService.delete(id);
     }
