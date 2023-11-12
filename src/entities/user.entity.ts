@@ -23,9 +23,6 @@ export class User {
     @Column()
     phone: string;
 
-    @Column()
-    type: string;
-
     @Column({
         default: () => 'user'
     })

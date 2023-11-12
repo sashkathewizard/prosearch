@@ -6,7 +6,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=prosearch
+      - POSTGRES_DB=prosearch-db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:

@@ -14,6 +14,7 @@ import {Category} from "../entities/category.entity";
 import {SubcategoryModule} from "./subcategory.module";
 import {SubCategory} from "../entities/subcategory.entity";
 import {AuthModule} from "../auth/auth.module";
+import {OrderModule} from "./order.module";
 
 
 @Module({
@@ -24,6 +25,7 @@ import {AuthModule} from "../auth/auth.module";
     CategoryModule,
     SubcategoryModule,
     AuthModule,
+    OrderModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST || 'localhost',
