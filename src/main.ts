@@ -5,6 +5,7 @@ async function start() {
 
   let port = process.env.PORT || 3001
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   await app.listen(port);
   console.log(`Server listen port: ${port}`)
 }

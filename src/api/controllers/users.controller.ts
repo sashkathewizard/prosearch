@@ -17,6 +17,7 @@ import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
+
     @Get()
     async findAll(): Promise<User[]> {
         return this.usersService.findAll();
