@@ -26,8 +26,7 @@ export class CategoryController{
         try {
             return this.CategoryService.create(category);
         } catch (error) {
-            // Винятки можна обробити, наприклад, у разі некоректних даних користувача
-            throw new BadRequestException('Invalid user data');
+            throw new BadRequestException('Invalid Category smth');
         }
     }
 

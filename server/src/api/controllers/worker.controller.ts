@@ -21,15 +21,15 @@ export class WorkerController {
         }
     }
 
-    @Post()
-    async create(@Body() worker: Worker): Promise<Worker> {
-        try {
-            return this.WorkerService.create(worker);
-        } catch (error) {
-            // Винятки можна обробити, наприклад, у разі некоректних даних користувача
-            throw new BadRequestException('Invalid user data');
-        }
-    }
+    // @Post()
+    // async create(@Body() worker: Worker): Promise<Worker> {
+    //     try {
+    //         return this.WorkerService.create(worker);
+    //     } catch (error) {
+    //         // Винятки можна обробити, наприклад, у разі некоректних даних користувача
+    //         throw new BadRequestException('Invalid user data');
+    //     }
+    // }
 
     @Put(':id')
     async update (@Param('id') id: number, @Body() worker: Worker): Promise<any> {

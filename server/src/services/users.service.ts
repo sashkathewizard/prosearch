@@ -1,8 +1,9 @@
-import {Injectable} from "@nestjs/common";
+import {Injectable, UseGuards} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {User} from "../entities/user.entity";
 import {Repository} from "typeorm";
 import {CreateUserDto} from "../dto/create-user.dto";
+import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 
 @Injectable()
 export class UsersService {
@@ -32,7 +33,7 @@ export class UsersService {
 
     async create(user: User, password: string): Promise<User> {
         user.password = password;
-        await this.userRepository.save(user)
+        await this.userRepository.save(user);
         return user;
     }
 }

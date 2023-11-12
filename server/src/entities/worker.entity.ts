@@ -42,20 +42,6 @@ export class Worker {
     @Column()
     description: string;
 
-    @ManyToMany(() => SubCategory)
-    @JoinTable({
-        name: 'worker_subcategory',
-        joinColumn: {
-            name: 'specialist_id',
-            referencedColumnName: 'id',
-        },
-        inverseJoinColumn: {
-            name: 'subcategory_id',
-            referencedColumnName: 'id',
-        },
-    })
-    categories: SubCategory[];
-
     @Column()
     rating: number | null;
 

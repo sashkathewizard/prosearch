@@ -1,6 +1,8 @@
-import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./user.entity";
 import {Worker} from "./worker.entity";
+import {Category} from "./category.entity";
+import {SubCategory} from "./subcategory.entity";
 
 @Entity()
 export class Order{
@@ -30,6 +32,9 @@ export class Order{
 
     @Column()
     status: string;
+
+    // @ManyToOne(() => SubCategory, Subcategory => Subcategory.orders)
+    // subcategory: SubCategory;
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdDate: Date;
