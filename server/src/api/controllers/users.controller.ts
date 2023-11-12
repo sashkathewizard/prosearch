@@ -1,4 +1,14 @@
-import {BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put} from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    NotFoundException,
+    Param,
+    Post,
+    Put,
+} from '@nestjs/common';
 import {UsersService} from '../../services/users.service';
 import {User} from '../../entities/user.entity';
 
@@ -21,15 +31,14 @@ export class UsersController {
         }
     }
 
-    @Post()
-    async create(@Body() user: User): Promise<User> {
-        try {
-            return this.usersService.create(user);
-        } catch (error) {
-            // Винятки можна обробити, наприклад, у разі некоректних даних користувача
-            throw new BadRequestException('Invalid user data');
-        }
-    }
+    // @Post()
+    // async create(@Body() user: User): Promise<User> {
+    //     try {
+    //         return this.usersService.create(user);
+    //     } catch (error) {
+    //         throw new BadRequestException('Invalid user data');
+    //     }
+    // }
 
     @Put(':id')
     async update (@Param('id') id: number, @Body() user: User): Promise<any> {
@@ -45,4 +54,5 @@ export class UsersController {
         }
         return this.usersService.delete(id);
     }
+
 }
