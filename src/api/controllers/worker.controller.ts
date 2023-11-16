@@ -1,4 +1,4 @@
-import {BadRequestException, Body, Controller, Delete, Get, NotFoundException, Param, Post, Put} from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put} from '@nestjs/common';
 import {WorkerService} from '../../services/worker.service';
 import {Worker} from "../../entities/worker.entity";
 

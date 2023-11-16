@@ -4,11 +4,13 @@ import {User} from "../entities/user.entity";
 import {UsersController} from "../api/controllers/users.controller";
 import {UsersService} from "../services/users.service";
 import {AuthModule} from "../auth/auth.module";
+import {S3Module} from "../s3/s3.module";
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([User]),
-        forwardRef(() => AuthModule)
+        forwardRef(() => AuthModule),
+        S3Module
     ],
     controllers: [UsersController],
     providers: [UsersService],

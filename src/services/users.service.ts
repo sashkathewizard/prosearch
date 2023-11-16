@@ -2,14 +2,15 @@ import {Injectable, UseGuards} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {User} from "../entities/user.entity";
 import {Repository} from "typeorm";
-import {CreateUserDto} from "../dto/create-user.dto";
-import {JwtAuthGuard} from "../auth/jwt-auth.guard";
+import {Express} from "express";
+import {S3Service} from "../s3/s3.service";
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        private s3Service: S3Service
     ) {}
 
     async findOne(id: number): Promise<User> {
@@ -35,5 +36,15 @@ export class UsersService {
         user.password = password;
         await this.userRepository.save(user);
         return user;
+    }
+
+    async addPhoto(id: number, file: Express.Multer.File){
+        const user = await this.userRepository.findOne({ where: { id } });
+
+        const key = `${file.fieldname}${Date.now()}`
+
+        const imageUrl = await this.s3Service.uploadFile(file, key);
+
+        await this.userRepository.update(id, {photo: imageUrl});
     }
 }

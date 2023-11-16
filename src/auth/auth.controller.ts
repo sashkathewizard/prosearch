@@ -19,13 +19,13 @@ export class AuthController {
         return this.authService.registration(user);
     }
 
-    // @Post('/login-worker')
-    // loginW(@Body() worker: Worker){
-    //     return this.authService.loginW(worker);
-    // }
+    @Post('/login-worker')
+    loginW(@Body() worker: Worker){
+        return this.authService.loginW(worker);
+    }
 
-    // @Post('/registration-worker')
-    // registrationW(@Body() worker: Worker){
-    //     return this.authService.registration(worker);
-    // }
+    @Post('/registration-worker')
+    registrationW(@Body() worker: Worker){
+        return this.authService.registrationW(worker);
+    }
 }

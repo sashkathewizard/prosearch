@@ -20,47 +20,44 @@ export class AuthService {
         return this.generateToken(newuser);
     }
 
-    // async loginW(workerDto: CreateWorkerDto){
-    //     const worker: Worker = await this.validateWorker(workerDto);
-    //     return this.generateToken(worker);
-    // }
+    async loginW(workerDto: CreateWorkerDto){
+        const worker: Worker = await this.validateWorker(workerDto);
+        return this.generateTokenWorker(worker);
+    }
 
     async registration( user: User){
-        // if (user instanceof User){
-            const candidate = await this.userService.findByEmail(user.email);
+        const candidate = await this.userService.findByEmail(user.email);
+        if (candidate){
+            throw new HttpException('Користувача з таким email вже існує', HttpStatus.BAD_REQUEST);
+        }
+        const hashPassword = await bcrypt.hash(user.password, 5);
+        const newUser: User = await this.userService.create(user, hashPassword);
+        return this.generateToken(newUser);
+    }
+
+    async registrationW(worker: Worker){
+        const candidate: Worker = await this.workerService.findByEmail(worker.email);
             if (candidate){
-                throw new HttpException('Користувача з таким email вже існує', HttpStatus.BAD_REQUEST);
+                throw new HttpException('Спеціаліста з таким email вже існує', HttpStatus.BAD_REQUEST);
             }
-            const hashPassword = await bcrypt.hash(user.password, 5);
-            const newUser: User = await this.userService.create(user, hashPassword);
-            return this.generateToken(newUser);
-        // }else if(user instanceof Worker){
-        //     const candidate: Worker = await this.workerService.findByEmail(user.email);
-        //     if (candidate){
-        //         throw new HttpException('Спеціаліста з таким email вже існує', HttpStatus.BAD_REQUEST);
-        //     }
-        //     const hashPassword = await bcrypt.hash(user.password, 5);
-        //     const newWorker: Worker = await this.workerService.create(user, hashPassword);
-        //     return this.generateToken(newWorker);
-        // }
+            const hashPassword = await bcrypt.hash(worker.password, 5);
+            const newWorker: Worker = await this.workerService.create(worker, hashPassword);
+            return this.generateTokenWorker(newWorker);
     }
 
     async generateToken(user: User ){
-        // if (user instanceof User){
-            const payload = {email: user.email, id: user.id, role: user.role, type: "User"}
-            return {
-                token: this.jwtService.sign(payload)
-            }
-        // }
-        // if (user instanceof Worker){
-        //     const payload = {email: user.email, id: user.id, type: "Worker"}
-        //     return {
-        //         token: this.jwtService.sign(payload)
-        //     }
-        // }else{
-        //     console.log("Fatal token error");
-        // }
+        const payload = {email: user.email, id: user.id, role: user.role, type: "User"}
+        return {
+            token: this.jwtService.sign(payload)
+        }
 
+    }
+
+    async generateTokenWorker(worker: Worker){
+        const payload = {email: worker.email, id: worker.id, type: "Worker"}
+        return {
+            token: this.jwtService.sign(payload)
+        }
     }
 
     private async validateUser(userDto: CreateUserDto) {
