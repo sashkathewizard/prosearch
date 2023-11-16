@@ -1,7 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Worker} from "../entities/worker.entity";
-import {In, Repository} from "typeorm";
+import {In, Like, Repository} from "typeorm";
 import { format, parse } from 'date-fns';
 import { de } from 'date-fns/locale';
 import {SubCategory} from "../entities/subcategory.entity";
@@ -16,6 +16,16 @@ export class WorkerService {
 
     async findAll(): Promise<Worker[]> {
         return this.workerRepository.find();
+    }
+
+    async search(searchTerm: string): Promise<Worker[]> {
+        return this.workerRepository.find({
+            where: [
+                { name: Like(`%${searchTerm}%`) },
+                { surname: Like(`%${searchTerm}%`) },
+                { lastname: Like(`%${searchTerm}%`) },
+            ],
+        });
     }
 
     async findOne(id: number): Promise<Worker> {

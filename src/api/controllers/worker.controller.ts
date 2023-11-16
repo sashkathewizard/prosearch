@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put} from '@nestjs/common';
+import {Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Query} from '@nestjs/common';
 import {WorkerService} from '../../services/worker.service';
 import {Worker} from "../../entities/worker.entity";
 
@@ -9,6 +9,12 @@ export class WorkerController {
     @Get()
     async findAll(): Promise<Worker[]> {
         return this.WorkerService.findAll();
+    }
+
+    @Get('search')
+    async search(@Query('prompt') prompt: string): Promise<Worker[]> {
+        console.log(prompt);
+        return this.WorkerService.search(prompt);
     }
 
     @Get(':id')
