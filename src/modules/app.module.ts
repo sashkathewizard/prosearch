@@ -35,6 +35,7 @@ import {OrderModule} from "./order.module";
       database: process.env.POSTGRES_DATABASE || "postgres",
       entities: [User, Worker, Category, SubCategory],
       synchronize: true,
+      autoLoadEntities: true
     }),
   ],
   controllers: [AppController],

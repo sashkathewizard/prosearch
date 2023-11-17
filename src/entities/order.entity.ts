@@ -25,16 +25,18 @@ export class Order{
     city: string;
 
     @Column({ type: 'date'})
-    date: string;
+    date: Date;
 
     @Column()
     price: number;
 
-    @Column()
+    @Column({
+        default: 'pending'
+    })
     status: string;
 
-    // @ManyToOne(() => SubCategory, Subcategory => Subcategory.orders)
-    // subcategory: SubCategory;
+    @ManyToOne(() => SubCategory, Subcategory => Subcategory.orders)
+    subcategory: SubCategory;
 
     @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdDate: Date;

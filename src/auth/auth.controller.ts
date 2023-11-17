@@ -9,9 +9,17 @@ export class AuthController {
 
     constructor(private authService: AuthService) {}
 
+
+
+
     @Post('/login')
     login(@Body() userDto: CreateUserDto){
-        return this.authService.login(userDto);
+        if(userDto.type === 'user'){
+            return this.authService.login(userDto);
+        } else {
+            return this.authService.loginW(userDto);
+        }
+
     }
 
     @Post('/registration')
@@ -19,10 +27,10 @@ export class AuthController {
         return this.authService.registration(user);
     }
 
-    @Post('/login-worker')
-    loginW(@Body() worker: Worker){
-        return this.authService.loginW(worker);
-    }
+    // @Post('/login-worker')
+    // loginW(@Body() userDto: CreateUserDto){
+    //     return this.authService.loginW(userDto);
+    // }
 
     @Post('/registration-worker')
     registrationW(@Body() worker: Worker){

@@ -27,6 +27,7 @@ export class OrderController{
     @Post()
     async create(@Body() order: Order): Promise<Order> {
         try {
+            order.date = new Date(order.date);
             return this.OrderService.create(order);
         } catch (error) {
             throw new BadRequestException('Invalid subcategory data');

@@ -10,8 +10,8 @@ export class SubCategory {
     @Column()
     title: string;
 
-    // @OneToMany(() => Order, order => order.subcategory)
-    // orders: Order[];
+    @OneToMany(() => Order, order => order.subcategory)
+    orders: Order[];
 
     @ManyToOne(() => Category, category => category.subcategories)
     category: Category;
