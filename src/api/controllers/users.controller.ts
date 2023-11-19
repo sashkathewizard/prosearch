@@ -65,7 +65,7 @@ export class UsersController {
                    @Param('id') id: number) {
         console.log(file);
 
-        await this.usersService.addPhoto(id, file);
+        return await this.usersService.addPhoto(id, file);
     }
 
 
