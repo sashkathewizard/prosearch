@@ -13,7 +13,7 @@ export class OrderController{
     constructor(private readonly OrderService: OrderService) {}
 
     @Get()
-    @ApiOperation({ summary: 'Get all orders' })
+    @ApiOperation({ summary: 'Get all orders ' })
     @ApiResponse({
         status: 200,
         description: 'Return all orders',
