@@ -6,12 +6,15 @@ import { format, parse } from 'date-fns';
 import { de } from 'date-fns/locale';
 import {SubCategory} from "../entities/subcategory.entity";
 import {User} from "../entities/user.entity";
+import {Express} from "express";
+import {S3Service} from "../s3/s3.service";
 
 @Injectable()
 export class WorkerService {
     constructor(
         @InjectRepository(Worker)
         private workerRepository: Repository<Worker>,
+        private s3Service: S3Service
     ) {}
 
     async findAll(): Promise<Worker[]> {
@@ -60,5 +63,15 @@ export class WorkerService {
 
     async findByEmail(email: string): Promise<Worker | undefined> {
         return this.workerRepository.findOne({ where: { email }});
+    }
+
+    async addPhoto(id: number, file: Express.Multer.File){
+        const user = await this.workerRepository.findOne({ where: { id } });
+
+        const key = `${file.fieldname}${Date.now()}`
+
+        const imageUrl = await this.s3Service.uploadFile(file, key);
+
+        await this.workerRepository.update(id, {photo: imageUrl});
     }
 }
